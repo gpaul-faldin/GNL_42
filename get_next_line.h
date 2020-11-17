@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:36 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/16 16:02:51 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/17 15:57:54 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include <unistd.h>
 
 
+# include <stdio.h>
+
 int		ft_strlen(char	*str);
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/16 16:06:32 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/17 14:45:26 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int		ft_strlen(char	*str)
 {
 	int		i;
+
+	i = 0;
 	while (str[i])
 		i++;
 	return (i);
@@ -27,7 +29,7 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
-	size = ft_strlen(s1);
+	size = ft_strlen((char*)s1);
 	if (!(s2 = malloc(sizeof(char) * (size + 1))))
 		return (0);
 	while (s1[i])
@@ -39,7 +41,7 @@ char	*ft_strdup(const char *s1)
 	return (s2);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*re;
 	int		i;
@@ -61,7 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	if (*s1)
 	{
-		free(*s1);
+		free(s1);
 		s1 = NULL;
 	}
 	re[i + n] = '\0';
