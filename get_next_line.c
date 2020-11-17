@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/17 16:36:28 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/17 18:00:19 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ int		get_next_line(int fd, char **line)
 	char			buf[BUFFER_SIZE + 1];
 	int				re;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE < 1)
+	if (fd < 0 || line == NULL || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
 		return (-1);
-		write(1, "salut", 5);
+		write(1, "salut\n", 6);			////////////
 	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
 	{
-		write(1, "caca", 4);
+		//write(1, "caca\n", 5);			////////////
 		buf[re] = '\0';
+		printf("PRINTF = %s\n", buf);
+		//write(1, "caca\n", 5);			////////////
 		cache = ft_strjoin(cache, buf);
-		printf("%s\n", cache);
+		//printf("%s\n", cache);			////////////
 		if (next_nl(cache) != 0)
 		{
 			ft_fill_line(&cache, line);
@@ -70,12 +72,15 @@ int		get_next_line(int fd, char **line)
 	return (0);
 }
 
-
+//////////////////////////////////////////////////////
 int			main(int argc, char **argv)
 {
 	char	**line;
+	int		fd;
+
+	fd = open(argv[1], O_RDONLY);
 	line = malloc(sizeof(char**) * 10);
 	(void)argc;
 
-	printf("%d\n", get_next_line(atoi(argv[1]), line));
+	printf("%d\n", get_next_line(fd, line));
 }

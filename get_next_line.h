@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:36 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/17 15:57:54 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/17 17:33:14 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-
+# include <fcntl.h>
 # include <stdio.h>
 
 int		ft_strlen(char	*str);

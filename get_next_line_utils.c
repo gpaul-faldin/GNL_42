@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/17 14:45:26 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/17 18:03:15 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	n = 0;
+	printf("S1 == %s\n S2 == %s\n", s1, s2);					//////////////////
+
 	if (!(re = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
+	printf("join2\n");											/////////////////
 	while (s1[i])
 	{
 		re[i] = s1[i];
