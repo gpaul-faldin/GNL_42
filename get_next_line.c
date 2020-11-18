@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/17 18:00:19 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/18 18:27:26 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	ft_fill_line(char **cache, char **line)
 		size = next_nl(*cache);
 	else
 		size = ft_strlen(*cache);
-	if ((*line = malloc(sizeof(char) * size + 1)) == NULL)
+	if ((*line = malloc(sizeof(char*) * size + 1)) == NULL)
 			return ;
 	while (i < size)
 	{
-		*(*line + i) = *(*cache + i);
+		*((*line) + i) = *((*cache) + i);
 		i++;
 	}
-	*(*line) = '\0';
-	
+	*cache = ft_strndup(*cache, next_nl(*cache));
+	//printf("CACHE == %s\n", *cache);
 }
 
 int		get_next_line(int fd, char **line)
@@ -54,18 +54,22 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == NULL || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
 		return (-1);
-		write(1, "salut\n", 6);			////////////
+	//if (next_nl(cache) > 0)
+	//{
+	//	ft_fill_line(&cache, line);
+	//	return (1);
+	//}
 	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
 	{
-		//write(1, "caca\n", 5);			////////////
 		buf[re] = '\0';
-		printf("PRINTF = %s\n", buf);
-		//write(1, "caca\n", 5);			////////////
+		//printf("BUF == %s\n", buf);							////////////
 		cache = ft_strjoin(cache, buf);
-		//printf("%s\n", cache);			////////////
-		if (next_nl(cache) != 0)
+		//printf("CACHE == %s\n", cache);
+		if (next_nl(cache) > 0 || ft_strlen(cache) == BUFFER_SIZE)
 		{
+			//printf("cache == %s\n", cache);					////////////////
 			ft_fill_line(&cache, line);
+			printf("LINE == %s\n", *line);
 			return (1);
 		}
 	}
@@ -83,4 +87,12 @@ int			main(int argc, char **argv)
 	(void)argc;
 
 	printf("%d\n", get_next_line(fd, line));
+	printf("%d\n", get_next_line(fd, line));
+	printf("%d\n", get_next_line(fd, line));
+	printf("%d\n", get_next_line(fd, line));
+	printf("%d\n", get_next_line(fd, line));
+	//printf("%d\n", get_next_line(fd, line));
+	//printf("%d\n", get_next_line(fd, line));
+	//printf("%d\n", get_next_line(fd, line));
+	//printf("%d\n", get_next_line(fd, line));
 }

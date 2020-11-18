@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/17 18:03:15 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/18 18:16:27 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,30 @@ int		ft_strlen(char	*str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strndup(char *s1, int i)
 {
 	int		size;
 	char	*s2;
-	int		i;
+	int		n;
 
-	i = 0;
+	n = 0;
 	size = ft_strlen((char*)s1);
-	if (!(s2 = malloc(sizeof(char) * (size + 1))))
-		return (0);
-	while (s1[i])
+	if (size <= i)
 	{
-		s2[i] = s1[i];
-		i++;
+		free(s1);
+		s1 = NULL;
+		return (0);
 	}
-	s2[i] = '\0';
+	//printf("I dup == %d\n", i);					/////////////
+	if (!(s2 = malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	while (n < size - 1)
+	{
+		s2[n] = s1[n + i];
+		n++;
+	}
+	s2[n] = '\0';
+	printf("S2 == %s\n", s2);
 	return (s2);
 }
 
@@ -49,26 +57,22 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	n = 0;
-	printf("S1 == %s\n S2 == %s\n", s1, s2);					//////////////////
 
-	if (!(re = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+	free(s1);
+	s1 = NULL;
+	if (!(re = malloc(sizeof(char) * (ft_strlen(s2) + 1))))
 		return (0);
-	printf("join2\n");											/////////////////
-	while (s1[i])
+	while (s1 != NULL && i < ft_strlen(s1))
 	{
 		re[i] = s1[i];
 		i++;
 	}
-	while (s2[n])
+	while (n < ft_strlen(s2))
 	{
 		re[i + n] = s2[n];
 		n++;
 	}
-	if (*s1)
-	{
-		free(s1);
-		s1 = NULL;
-	}
 	re[i + n] = '\0';
+	//printf("S1 == %s\nS2 == %s\n", s1, s2);					//////////////////
 	return (re);
 }

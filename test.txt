@@ -1,7 +1,1 @@
-salut
-comment
-ca
-va
-bien
-et
-toi
+salutcommentcava
