@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/18 18:16:27 by gpaul            ###   ########.fr       */
+/*   Updated: 2020/11/20 14:22:12 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		ft_strlen(char	*str)
 	int		i;
 
 	i = 0;
+	if (!str || str == NULL)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
@@ -25,28 +27,34 @@ int		ft_strlen(char	*str)
 char	*ft_strndup(char *s1, int i)
 {
 	int		size;
-	char	*s2;
+	char	*re;
 	int		n;
+	int		x;
 
+	x = 0;
 	n = 0;
-	size = ft_strlen((char*)s1);
-	if (size <= i)
+	size = ft_strlen(s1);
+	if (size <= i && !s1)
 	{
 		free(s1);
 		s1 = NULL;
 		return (0);
 	}
-	//printf("I dup == %d\n", i);					/////////////
-	if (!(s2 = malloc(sizeof(char) * (size + 1))))
+	if (!(re = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
-	while (n < size - 1)
+	while (i < size)
 	{
-		s2[n] = s1[n + i];
+		re[n] = s1[i];
 		n++;
+		i++;
 	}
-	s2[n] = '\0';
-	printf("S2 == %s\n", s2);
-	return (s2);
+	re[n] = '\0';
+	if (s1 != NULL)
+	{
+		free(s1);
+		s1 = NULL;
+	}
+	return (re);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -57,12 +65,9 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	n = 0;
-
-	free(s1);
-	s1 = NULL;
-	if (!(re = malloc(sizeof(char) * (ft_strlen(s2) + 1))))
+	if (!(re = malloc(sizeof(char) *(ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
-	while (s1 != NULL && i < ft_strlen(s1))
+	while (i < ft_strlen(s1))
 	{
 		re[i] = s1[i];
 		i++;
@@ -73,6 +78,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		n++;
 	}
 	re[i + n] = '\0';
-	//printf("S1 == %s\nS2 == %s\n", s1, s2);					//////////////////
+	if (s1 != NULL)
+	{
+		free(s1);
+		s1 = NULL;
+	}
 	return (re);
 }
