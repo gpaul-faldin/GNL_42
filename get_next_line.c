@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/20 14:22:25 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/05 15:56:11 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	ft_fill_line(char **cache, char **line)
 		i++;
 	}
 	*((*line) + size) = '\0';
+	printf ("cache fill_line == %s\n", *cache);
 	*cache = ft_strndup(*cache, next_nl(*cache));
+	printf ("cache fill_line == %s\n", *cache);
 }
 
 int		get_next_line(int fd, char **line)
@@ -67,6 +69,7 @@ int		get_next_line(int fd, char **line)
 	{
 		buf[re] = '\0';
 		cache = ft_strjoin(cache, buf);
+		printf ("CACHE == %s\n", cache);
 		if (next_nl(buf) > 0)
 		{
 			ft_fill_line(&cache, line);
@@ -78,6 +81,7 @@ int		get_next_line(int fd, char **line)
 	{
 		buf[re] = '\0';
 		cache = ft_strjoin(cache, buf);
+		printf ("CACHE == %s\n", cache);
 		if (next_nl(cache) == 0)
 		{
 			*line = ft_strndup(cache, next_nl(cache));
