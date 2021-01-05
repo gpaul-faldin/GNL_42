@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 15:00:40 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/05 11:38:41 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/05 16:01:27 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,19 @@ void	ft_fill_line(char **cache, char **line)
 		size = next_nl(*cache);
 	else
 		size = ft_strlen(*cache);
+	//printf("cache = %s\n",*cache);
 	if ((*line = malloc(sizeof(char*) * size + 1)) == NULL)
 		return ;
-	while (i < size - 1)
+	while (i < size)
 	{
 		*((*line) + i) = *((*cache) + i);
 		i++;
 	}
 	*((*line) + i) = '\0';
-	*cache = ft_alloc(cache, next_nl(*cache));
+
+	printf ("cache fill_line == %s\n", *cache);
+	*cache = ft_alloc(*cache, next_nl(*cache));
+	printf ("cache fill_line == %s\n", *cache);
 }
 
 int		ft_return(int re, char *cache, char **line)
@@ -54,8 +58,13 @@ int		ft_return(int re, char *cache, char **line)
 	if (re == 0)
 		return (0);
 	else
+	{													/////////////////
 		ft_fill_line(&cache, line);
-		//printf ("re == %s", *line);
+		//free(cache);
+		//cache = NULL;
+		//printf ("ft_return == %s\n", *line);				///////////////////////
+	}													///////////////
+	printf("----------------------------------------------------------------------------\n");
 	return(1);
 }
 
@@ -70,7 +79,9 @@ int		get_next_line(int fd, char **line)
 	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
 	{
 		buf[re] = '\0';
+		//printf("BUF == %s\n", buf);
 		cache = ft_strjoin_free(cache, buf);
+		printf ("CACHE == %s\n", cache);
 		if (next_nl(cache) > 0)
 			return(ft_return(re, cache, line));
 	}

@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 15:00:42 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/05 11:53:46 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/05 16:00:11 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_strlen(char	*str)
 	return (i);
 }
 
-char	*ft_alloc(char **s1, int i)
+char	*ft_alloc(char *s1, int i)
 {
 	int		size;
 	char	*re;
@@ -33,30 +33,33 @@ char	*ft_alloc(char **s1, int i)
 
 	x = 0;
 	n = 0;
-	size = ft_strlen(*s1);
-	if (size <= i && !s1)
+	size = ft_strlen(s1);
+	if (size <= i || !s1)
 	{
 		free(s1);
-		*s1 = NULL;
+		s1 = NULL;
+		//printf ("ICI\n");			////////////////////////////
 		return (0);
 	}
+	//printf ("size == %d\ni == %d\n", size, i);
 	if (!(re = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	while (i < size)
 	{
-		re[n] = *((*s1) + i);
+		re[n] = s1[i];
 		n++;
 		i++;
 	}
+	//printf("i after == %d\n", i);
 	re[n] = '\0';
-	printf ("re alloc == %s i == %d\n", re, i);
+	//printf ("re alloc == %s i == %d\n", re, i);					////////////////////////////////
 													//free RE (buffer)
-	if (s1)
+	if (s1 != NULL)
 	{
 		free(s1);
 		s1 = NULL;
 	}
-	
+	//printf ("alloc_RE == %s\n", re);
 	return (re);
 }
 
@@ -70,13 +73,12 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	n = 0;
 	if (!(re = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
-	if (s1 != NULL)
-		while (s1[i])
-		{
-			re[i] = s1[i];
-			i++;
-		}
-	while (s2[n])
+	while (i < ft_strlen(s1))
+	{
+		re[i] = s1[i];
+		i++;
+	}
+	while (n < ft_strlen(s2))
 	{
 		re[i + n] = s2[n];
 		n++;
@@ -87,5 +89,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		free(s1);
 		s1 = NULL;
 	}
+	//printf ("return join_free = %s\n", re);
 	return (re);
 }
