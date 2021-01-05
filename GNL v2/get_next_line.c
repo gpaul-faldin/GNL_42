@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 15:00:40 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/04 15:46:18 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/05 11:38:41 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_return(int re, char *cache, char **line)
 		return (0);
 	else
 		ft_fill_line(&cache, line);
-		printf ("re == %s\n", *line);
+		//printf ("re == %s", *line);
 	return(1);
 }
 

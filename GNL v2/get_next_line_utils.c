@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 15:00:42 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/04 15:45:43 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/05 11:53:46 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,14 @@ char	*ft_alloc(char **s1, int i)
 		i++;
 	}
 	re[n] = '\0';
-	if (s1 != NULL)
+	printf ("re alloc == %s i == %d\n", re, i);
+													//free RE (buffer)
+	if (s1)
 	{
 		free(s1);
-		*s1 = NULL;
+		s1 = NULL;
 	}
+	
 	return (re);
 }
 
@@ -67,11 +70,12 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	n = 0;
 	if (!(re = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
-	while (s1[i] && s1 != NULL)
-	{
-		re[i] = s1[i];
-		i++;
-	}
+	if (s1 != NULL)
+		while (s1[i])
+		{
+			re[i] = s1[i];
+			i++;
+		}
 	while (s2[n])
 	{
 		re[i + n] = s2[n];
