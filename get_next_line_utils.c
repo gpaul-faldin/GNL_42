@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/20 14:22:12 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/06 17:27:24 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_strndup(char *s1, int i)
 		i++;
 	}
 	re[n] = '\0';
-	if (s1 != NULL)
+	if (s1)
 	{
 		free(s1);
 		s1 = NULL;
@@ -65,7 +65,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	n = 0;
-	if (!(re = malloc(sizeof(char) *(ft_strlen(s1) + ft_strlen(s2) + 1))))
+	if (!(re = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
 	while (i < ft_strlen(s1))
 	{
@@ -78,10 +78,5 @@ char	*ft_strjoin(char *s1, char *s2)
 		n++;
 	}
 	re[i + n] = '\0';
-	if (s1 != NULL)
-	{
-		free(s1);
-		s1 = NULL;
-	}
 	return (re);
 }
