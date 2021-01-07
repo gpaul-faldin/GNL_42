@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 14:55:34 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/07 00:48:43 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/07 15:28:16 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int			main(int argc, char **argv)
 	char	*line = 0;
 	int		fd;
 	int		i = 1;
-	//int		x = 0;
 
 	fd = open(argv[1], O_RDONLY);
 	(void)argc;
@@ -27,6 +26,7 @@ int			main(int argc, char **argv)
 	while (i > 0)
 	{
 		i = get_next_line(fd, &line);
+		//printf("LINE == %s", line);
 		printf("%d\n", i);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/07 00:58:58 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/07 14:47:59 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ void	ft_fill_line(char **cache, char **line)
 	*cache = ft_strndup(cache, next_nl(*cache));
 }
 
+int		ft_return(char **cache, int re, char **line, char *buf)
+{
+	if (re >= 0)
+	{
+		buf[re] = '\0';
+		*cache = ft_strjoin(cache, buf);
+		if (next_nl(*cache) == 0)
+		{
+			*line = ft_strndup(cache, 0);
+			return (0);
+		}
+	}
+	ft_fill_line(cache, line);
+	return (1);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	static char		*cache = NULL;
@@ -59,6 +75,11 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == NULL || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
 		return (-1);
+	if (next_nl(cache) > 0)
+	{
+		ft_fill_line(&cache, line);
+		return (1);
+	}
 	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
 	{
 		buf[re] = '\0';
@@ -69,16 +90,5 @@ int		get_next_line(int fd, char **line)
 			return (1);
 		}
 	}
-	if (re >= 0)
-	{
-		buf[re] = '\0';
-		cache = ft_strjoin(&cache, buf);
-		if (next_nl(cache) == 0)
-		{
-			*line = ft_strndup(&cache, 0);
-			return (0);
-		}
-	}
-	ft_fill_line(&cache, line);
-	return (1);
+	return (ft_return(&cache, re, line, buf));
 }
