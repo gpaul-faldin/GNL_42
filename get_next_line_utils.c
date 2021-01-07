@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/06 17:27:24 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/07 00:56:31 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,45 +19,42 @@ int		ft_strlen(char	*str)
 	i = 0;
 	if (!str || str == NULL)
 		return (0);
-	while (str[i])
+	while (str[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strndup(char *s1, int i)
+char	*ft_strndup(char **s1, int i)
 {
 	int		size;
 	char	*re;
 	int		n;
-	int		x;
 
-	x = 0;
 	n = 0;
-	size = ft_strlen(s1);
-	if (size <= i && !s1)
+	size = ft_strlen(*s1);
+	if (next_nl(*s1) == 0)
+		size++;
+	if (size <= i)
 	{
-		free(s1);
-		s1 = NULL;
+		free(*s1);
+		*s1 = NULL;
 		return (0);
 	}
 	if (!(re = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
-	while (i < size)
+	while (i < size && *(*s1 + i))
 	{
-		re[n] = s1[i];
-		n++;
+		re[n] = *(*s1 + i);
 		i++;
+		n++;
 	}
 	re[n] = '\0';
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-	}
+	free(*s1);
+	*s1 = NULL;
 	return (re);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char **s1, char *s2)
 {
 	char	*re;
 	int		i;
@@ -65,11 +62,11 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	n = 0;
-	if (!(re = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+	if (!(re = malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2) + 1))))
 		return (0);
-	while (i < ft_strlen(s1))
+	while (i < ft_strlen(*s1))
 	{
-		re[i] = s1[i];
+		re[i] = (*s1)[i];
 		i++;
 	}
 	while (n < ft_strlen(s2))
@@ -78,5 +75,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		n++;
 	}
 	re[i + n] = '\0';
+	if (*s1)
+	{
+		free(*s1);
+		*s1 = NULL;
+	}
 	return (re);
 }

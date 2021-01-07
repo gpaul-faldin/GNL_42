@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:36 by gpaul             #+#    #+#             */
-/*   Updated: 2020/11/18 18:31:45 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/07 00:55:50 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include <fcntl.h>
 # include <stdio.h>
 
+int		next_nl(char *str);
 int		ft_strlen(char	*str);
-char	*ft_strndup(char *s1, int i);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strndup(char **s1, int i);
+char	*ft_strjoin(char **s1, char *s2);
 int		get_next_line(int fd, char **line);
 
 

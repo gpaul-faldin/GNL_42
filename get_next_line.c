@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/06 17:33:30 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/07 00:58:58 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		next_nl(char *str)
 	int		i;
 
 	i = 0;
-	if (str == '\0')
+	if (!str)
 		return (0);
 	while (str[i])
 	{
@@ -45,10 +45,10 @@ void	ft_fill_line(char **cache, char **line)
 		*((*line) + i) = *((*cache) + i);
 		i++;
 	}
+	if (size > 1)
+		size--;
 	*((*line) + size) = '\0';
-	//printf ("cache fill_line == %s\n", *cache);
-	*cache = ft_strndup(*cache, next_nl(*cache));
-	//printf ("cache fill_line == %s\n", *cache);
+	*cache = ft_strndup(cache, next_nl(*cache));
 }
 
 int		get_next_line(int fd, char **line)
@@ -59,47 +59,26 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == NULL || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
 		return (-1);
-	
 	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
 	{
 		buf[re] = '\0';
-		cache = ft_strjoin(cache, buf);
-		//printf ("cache == %s\n", cache);							//////////////////
+		cache = ft_strjoin(&cache, buf);
 		if (next_nl(buf) > 0)
 		{
 			ft_fill_line(&cache, line);
-			//printf("LINE == %s", *line);							///////////////////
-				return (1);
-			
+			return (1);
 		}
 	}
 	if (re >= 0)
 	{
 		buf[re] = '\0';
-		cache = ft_strjoin(cache, buf);
-		//printf ("CACHE_bas == %s\n", cache);							///////////////
+		cache = ft_strjoin(&cache, buf);
 		if (next_nl(cache) == 0)
 		{
-			*line = ft_strndup(cache, next_nl(cache));
-			//printf("LINE RE == %s\n", *line);							///////////////////
+			*line = ft_strndup(&cache, 0);
 			return (0);
 		}
-		ft_fill_line(&cache, line);
-		
-		//if (next_nl(cache) > 0)
-			return (1);
-		//else
-			//return (0);
 	}
-	if ((next_nl(cache) > 0))
-		{
-			ft_fill_line(&cache, line);
-			//printf("LINE CACHE == %s\n", *line);						///////////////
-			//if (re >= 0 && next_nl(cache) > 0)
-				return (1);
-			//else
-			//	return (0);
-			
-		}
-	return (0);
+	ft_fill_line(&cache, line);
+	return (1);
 }
