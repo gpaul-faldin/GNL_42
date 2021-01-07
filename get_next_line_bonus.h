@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/19 14:55:34 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/07 15:50:20 by gpaul            ###   ########.fr       */
+/*   Created: 2020/10/14 19:14:36 by gpaul             #+#    #+#             */
+/*   Updated: 2021/01/07 16:03:09 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
+# include <stdlib.h>
+# include <unistd.h>
+
+int		next_nl(char *str);
+int		ft_strlen(char	*str);
+char	*ft_strndup(char **s1, int i);
+char	*ft_strjoin(char **s1, char *s2);
 int		get_next_line(int fd, char **line);
 
-int			main(int argc, char **argv)
-{
-	char	*line = 0;
-	int		fd;
-	int		i = 1;
 
-	fd = open(argv[1], O_RDONLY);
-	(void)argc;
 
-	while (i > 0)
-	{
-		i = get_next_line(fd, &line);
-		printf("LINE == %s", line);
-		printf("%d\n", i);
-	}
-}
+
+#endif
