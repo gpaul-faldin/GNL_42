@@ -6,13 +6,13 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/07 00:56:31 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/08 11:02:27 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_strlen(char	*str)
+int		ft_strlen(char *str)
 {
 	int		i;
 
@@ -24,14 +24,20 @@ int		ft_strlen(char	*str)
 	return (i);
 }
 
-char	*ft_strndup(char **s1, int i)
+char	*ft_return_strdup(char *re)
 {
-	int		size;
+	if (re[0])
+		return (re);
+	else
+		return (0);
+}
+
+char	*ft_strdup_free(char **s1, int i, int size)
+{
 	char	*re;
 	int		n;
 
 	n = 0;
-	size = ft_strlen(*s1);
 	if (next_nl(*s1) == 0)
 		size++;
 	if (size <= i)
@@ -54,7 +60,7 @@ char	*ft_strndup(char **s1, int i)
 	return (re);
 }
 
-char	*ft_strjoin(char **s1, char *s2)
+char	*ft_strjoin_free(char **s1, char *s2)
 {
 	char	*re;
 	int		i;

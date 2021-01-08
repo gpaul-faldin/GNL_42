@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/07 14:47:59 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/08 10:59:29 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ void	ft_fill_line(char **cache, char **line)
 	else
 		size = ft_strlen(*cache);
 	if ((*line = malloc(sizeof(char*) * size + 1)) == NULL)
-			return ;
+		return ;
 	while (i < size)
 	{
 		*((*line) + i) = *((*cache) + i);
 		i++;
 	}
-	if (size > 1)
+	if (size > 0)
 		size--;
 	*((*line) + size) = '\0';
-	*cache = ft_strndup(cache, next_nl(*cache));
+	*cache = ft_strdup_free(cache, next_nl(*cache), ft_strlen(*cache));
 }
 
 int		ft_return(char **cache, int re, char **line, char *buf)
@@ -56,10 +56,10 @@ int		ft_return(char **cache, int re, char **line, char *buf)
 	if (re >= 0)
 	{
 		buf[re] = '\0';
-		*cache = ft_strjoin(cache, buf);
+		*cache = ft_strjoin_free(cache, buf);
 		if (next_nl(*cache) == 0)
 		{
-			*line = ft_strndup(cache, 0);
+			*line = ft_strdup_free(cache, 0, ft_strlen(*cache));
 			return (0);
 		}
 	}
@@ -69,26 +69,26 @@ int		ft_return(char **cache, int re, char **line, char *buf)
 
 int		get_next_line(int fd, char **line)
 {
-	static char		*cache = NULL;
+	static char		*cache[4096];
 	char			buf[BUFFER_SIZE + 1];
 	int				re;
 
 	if (fd < 0 || line == NULL || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
 		return (-1);
-	if (next_nl(cache) > 0)
+	if (next_nl(cache[fd]) > 0)
 	{
-		ft_fill_line(&cache, line);
+		ft_fill_line(&cache[fd], line);
 		return (1);
 	}
 	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
 	{
 		buf[re] = '\0';
-		cache = ft_strjoin(&cache, buf);
+		cache[fd] = ft_strjoin_free(&cache[fd], buf);
 		if (next_nl(buf) > 0)
 		{
-			ft_fill_line(&cache, line);
+			ft_fill_line(&cache[fd], line);
 			return (1);
 		}
 	}
-	return (ft_return(&cache, re, line, buf));
+	return (ft_return(&cache[fd], re, line, buf));
 }
