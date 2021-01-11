@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:36 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/08 11:02:15 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/08 15:10:10 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,5 @@ int		ft_strlen(char	*str);
 char	*ft_strdup_free(char **s1, int i, int size);
 char	*ft_strjoin_free(char **s1, char *s2);
 int		get_next_line(int fd, char **line);
-
-
-
 
 #endif

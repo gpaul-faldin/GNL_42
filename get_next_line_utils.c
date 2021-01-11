@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/08 11:02:27 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/11 11:21:16 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_strlen(char *str)
 	i = 0;
 	if (!str || str == NULL)
 		return (0);
-	while (str[i] != '\0')
+	while (str[i])
 		i++;
 	return (i);
 }
@@ -68,7 +68,7 @@ char	*ft_strjoin_free(char **s1, char *s2)
 
 	i = 0;
 	n = 0;
-	if (!(re = malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2) + 1))))
+	if (!(re = malloc(sizeof(char) * ((ft_strlen(*s1) + ft_strlen(s2)) + 1))))
 		return (0);
 	while (i < ft_strlen(*s1))
 	{

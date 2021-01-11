@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/08 10:59:29 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/11 14:11:43 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_fill_line(char **cache, char **line)
 		size = next_nl(*cache);
 	else
 		size = ft_strlen(*cache);
-	if ((*line = malloc(sizeof(char*) * size + 1)) == NULL)
+	if ((*line = malloc(sizeof(char) * size + 1)) == NULL)
 		return ;
 	while (i < size)
 	{
