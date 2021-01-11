@@ -6,7 +6,7 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:36 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/11 11:18:14 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/01/11 14:17:03 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-
-
-
-#include <malloc/malloc.h>
-#include <stdio.h>
-
 
 int		next_nl(char *str);
 int		ft_strlen(char	*str);
