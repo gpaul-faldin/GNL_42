@@ -6,13 +6,13 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:41 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/11 14:11:43 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/07/07 00:04:03 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		next_nl(char *str)
+int	next_nl(char *str)
 {
 	int		i;
 
@@ -38,7 +38,8 @@ void	ft_fill_line(char **cache, char **line)
 		size = next_nl(*cache);
 	else
 		size = ft_strlen(*cache);
-	if ((*line = malloc(sizeof(char) * size + 1)) == NULL)
+	*line = malloc(sizeof(char) * size + 1);
+	if (*line == NULL)
 		return ;
 	while (i < size)
 	{
@@ -51,7 +52,7 @@ void	ft_fill_line(char **cache, char **line)
 	*cache = ft_strdup_free(cache, next_nl(*cache), ft_strlen(*cache));
 }
 
-int		ft_return(char **cache, int re, char **line, char *buf)
+int	ft_return(char **cache, int re, char **line, char *buf)
 {
 	if (re >= 0)
 	{
@@ -67,12 +68,13 @@ int		ft_return(char **cache, int re, char **line, char *buf)
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char		*cache[4096];
 	char			buf[BUFFER_SIZE + 1];
 	int				re;
 
+	re = 1;
 	if (fd < 0 || line == NULL || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
 		return (-1);
 	if (next_nl(cache[fd]) > 0)
@@ -80,8 +82,9 @@ int		get_next_line(int fd, char **line)
 		ft_fill_line(&cache[fd], line);
 		return (1);
 	}
-	while ((re = read(fd, buf, BUFFER_SIZE)) == BUFFER_SIZE)
+	while (re != 0)
 	{
+		re = read(fd, buf, BUFFER_SIZE);
 		buf[re] = '\0';
 		cache[fd] = ft_strjoin_free(&cache[fd], buf);
 		if (next_nl(buf) > 0)

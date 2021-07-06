@@ -6,13 +6,13 @@
 /*   By: gpaul <gpaul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:14:40 by gpaul             #+#    #+#             */
-/*   Updated: 2021/01/11 11:21:16 by gpaul            ###   ########.fr       */
+/*   Updated: 2021/07/06 22:21:55 by gpaul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int		i;
 
@@ -46,7 +46,8 @@ char	*ft_strdup_free(char **s1, int i, int size)
 		*s1 = NULL;
 		return (0);
 	}
-	if (!(re = malloc(sizeof(char) * (size + 1))))
+	re = malloc(sizeof(char) * (size + 1));
+	if (re == NULL)
 		return (NULL);
 	while (i < size && *(*s1 + i))
 	{
@@ -60,16 +61,13 @@ char	*ft_strdup_free(char **s1, int i, int size)
 	return (re);
 }
 
-char	*ft_strjoin_free(char **s1, char *s2)
+char	*ft_strjoin_utils(char **s1, char *s2, char *re)
 {
-	char	*re;
 	int		i;
 	int		n;
 
 	i = 0;
 	n = 0;
-	if (!(re = malloc(sizeof(char) * ((ft_strlen(*s1) + ft_strlen(s2)) + 1))))
-		return (0);
 	while (i < ft_strlen(*s1))
 	{
 		re[i] = (*s1)[i];
@@ -81,6 +79,17 @@ char	*ft_strjoin_free(char **s1, char *s2)
 		n++;
 	}
 	re[i + n] = '\0';
+	return (re);
+}
+
+char	*ft_strjoin_free(char **s1, char *s2)
+{
+	char	*re;
+
+	re = malloc(sizeof(char) * ((ft_strlen(*s1) + ft_strlen(s2)) + 1));
+	if (re == NULL)
+		return (0);
+	re = ft_strjoin_utils(s1, s2, re);
 	if (*s1)
 	{
 		free(*s1);
